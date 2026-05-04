@@ -1,6 +1,7 @@
 import { AppShell } from "@/components/layout/app-shell";
 import { EntriesTable } from "@/components/entries/entries-table";
 import { AdminFilterForm } from "@/components/admin/filter-form";
+import { InviteEmployeeForm } from "@/components/admin/invite-employee-form";
 import { PageShell, SecondaryLink } from "@/components/ui";
 import { deleteEntryAction } from "@/app/server-actions";
 import { getCurrentProfile, requireRole } from "@/lib/auth";
@@ -9,6 +10,7 @@ import type { Profile, WorkEntry } from "@/lib/types";
 
 type SearchParams = {
   employee?: string;
+  invite?: string;
   week?: string;
   year?: string;
   object?: string;
@@ -44,7 +46,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
         description="Filtruokite visų darbuotojų įrašus pagal darbuotoją, savaitę, metus arba objekto numerį."
         actions={<SecondaryLink href="/admin/generate">Generuoti PDF</SecondaryLink>}
       >
-        <AdminFilterForm employees={(employeesResponse.data ?? []) as Profile[]} current={searchParams} actionPath="/admin" />
+        <InviteEmployeeForm inviteSent={searchParams.invite === "sent"} />
+        <div className="mt-6">
+          <AdminFilterForm employees={(employeesResponse.data ?? []) as Profile[]} current={searchParams} actionPath="/admin" />
+        </div>
         <div className="mt-6">
           <EntriesTable entries={(data ?? []) as WorkEntry[]} canManageAll deleteAction={deleteEntryAction} />
         </div>

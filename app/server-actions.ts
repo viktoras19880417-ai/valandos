@@ -4,12 +4,66 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { entrySchema, enrichEntryDate } from "@/lib/entries";
 import { getCurrentProfile, getSessionUser } from "@/lib/auth";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signOutAction() {
   const supabase = createClient();
   await supabase.auth.signOut();
   redirect("/login");
+}
+
+export async function inviteEmployeeAction(formData: FormData) {
+  const { profile } = await getCurrentProfile();
+
+  if (profile.role !== "admin") {
+    redirect("/dashboard");
+  }
+
+  const fullName = String(formData.get("full_name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+  if (!fullName) {
+    throw new Error("Employee name is required.");
+  }
+
+  if (!email) {
+    throw new Error("Employee email is required.");
+  }
+
+  if (!siteUrl) {
+    throw new Error("Missing NEXT_PUBLIC_SITE_URL.");
+  }
+
+  const supabaseAdmin = createAdminClient();
+  const { data, error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
+    data: { full_name: fullName, role: "employee" },
+    redirectTo: `${siteUrl}/auth/callback?next=/auth/set-password`,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data.user?.id) {
+    throw new Error("Invite did not return a user id.");
+  }
+
+  const { error: profileError } = await supabaseAdmin.from("profiles").upsert({
+    id: data.user.id,
+    email,
+    full_name: fullName,
+    role: "employee",
+  });
+
+  if (profileError) {
+    throw new Error(profileError.message);
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/generate");
+  redirect("/admin?invite=sent");
 }
 
 export async function createEntryAction(formData: FormData) {

@@ -21,6 +21,8 @@ Valandos is a mobile-first Progressive Web App for construction work hour tracki
 - `/entries/[id]/edit`
 - `/admin`
 - `/admin/generate`
+- `/auth/callback`
+- `/auth/set-password`
 - `/settings`
 
 ## Tech Stack
@@ -72,9 +74,13 @@ Create `.env.local` with:
 
 ```env
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
+
+For Vercel, add the same variables in Project Settings -> Environment Variables. `NEXT_PUBLIC_SITE_URL` should be your deployed site URL, for example `https://your-app.vercel.app`. `SUPABASE_SERVICE_ROLE_KEY` must be added as a server-side secret only; never prefix it with `NEXT_PUBLIC_` and never use it in client components.
 
 ## Database Design
 

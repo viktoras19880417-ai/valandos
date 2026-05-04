@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-const publicRoutes = ["/login", "/manifest.webmanifest", "/sw.js"];
+const publicRoutes = ["/login", "/auth/callback", "/manifest.webmanifest", "/sw.js"];
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next({

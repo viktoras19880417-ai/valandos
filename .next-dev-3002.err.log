@@ -299,3 +299,4 @@ digest: "1312127332"
 <w>  at file dependencies C:\Users\G-PC\Desktop\valandos\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w>  at file C:\Users\G-PC\Desktop\valandos\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w>  at resolve commonjs C:\Users\G-PC\Desktop\valandos\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
