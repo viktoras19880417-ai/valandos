@@ -24,7 +24,7 @@ export function AppShell({
   ];
 
   return (
-    <div className="pb-24">
+    <div>
       <header className="sticky top-0 z-20 border-b border-white/80 bg-mist/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div>
@@ -39,9 +39,17 @@ export function AppShell({
         </div>
       </header>
 
-      {children}
+      <div
+        className={
+          profile.role === "admin"
+            ? "pb-[calc(16rem+env(safe-area-inset-bottom))]"
+            : "pb-[calc(10rem+env(safe-area-inset-bottom))]"
+        }
+      >
+        {children}
+      </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur">
+      <nav className="fixed bottom-0 left-0 z-30 w-full border-t border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto grid max-w-6xl grid-cols-4 gap-1 px-2 py-2">
           {items.map((item) => {
             const Icon = item.icon;
