@@ -8,3 +8,28 @@
 
  ✓ Starting...
  ✓ Ready in 1791ms
+ ✓ Compiled /middleware in 287ms (125 modules)
+ ✓ Compiled /api/health in 206ms (56 modules)
+ GET /api/health 200 in 289ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1723ms (463 modules)
+ GET / 307 in 1964ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.2s (1194 modules)
+ GET /dashboard 500 in 3188ms
+ GET /dashboard 500 in 652ms
+ ✓ Compiled in 220ms (256 modules)
+ GET /dashboard 500 in 517ms
+ ✓ Compiled in 117ms (256 modules)
+ GET /dashboard 500 in 248ms
+ GET /dashboard 500 in 495ms
+ ✓ Compiled /_not-found in 270ms (1180 modules)
+ GET /_next/static/chunks/webpack.js 404 in 381ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 269ms
+ GET /_next/static/chunks/main-app.js 404 in 281ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1194ms (1407 modules)
+ GET /dashboard 500 in 1377ms
+ GET /dashboard 500 in 13ms
+ GET /dashboard 500 in 443ms
+ ✓ Compiled in 1818ms (1418 modules)
